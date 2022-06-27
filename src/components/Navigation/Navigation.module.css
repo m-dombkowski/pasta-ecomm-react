@@ -1,0 +1,35 @@
+.navigation {
+  height: 6rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  background-color: rgba(245, 245, 220, 0.555);
+}
+
+.naviList {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 1rem;
+  padding: 0 4rem;
+  font-size: 1.5rem;
+}
+
+.mainAnchor {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.pastaSvg {
+  height: 3rem;
+  width: 3rem;
+}
+
+ul li a {
+  text-decoration: none;
+}
+
+.userAnchor {
+  margin-left: auto;
+}
