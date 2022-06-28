@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import Hero from "../../components/hero/Hero";
+import Hero from "../../components/Hero/Hero";
 
 const Main = () => {
   return (
