@@ -2,7 +2,10 @@ import styles from "./About.module.css";
 import "../../fonts/fonts.css";
 import pastaImg from "../../assets/pastaRaw.jpg";
 import sparkles from "../../assets/sparkles.jpg";
-import flour from "../../assets/flour.jpg";
+import { Link } from "react-router-dom";
+import pappardelle from "../../assets/pappardelle.jpg";
+import tagliatelle from "../../assets/tagliatelle.jpg";
+import vermicelli from "../../assets/vermicelli.jpg";
 
 const About = () => {
   return (
@@ -47,7 +50,7 @@ const About = () => {
           </div>
           <img
             src={sparkles}
-            alt="sparkles (cold fires) by Ethan Hoover from Unsplash
+            alt="Sparkles (cold fires) by Ethan Hoover on Unsplash
             "
             className={[styles.img, styles.rightImg].join(" ")}
           />
@@ -68,16 +71,156 @@ const About = () => {
               ingredients but the perfect ratio and way of preparation makes our
               pasta one of the best if not the best in the world{" "}
             </p>
-          </div>
-          <div className={styles.textContainer}>
             <div className={styles.pastaTypesContainer}>
               <h2>Pasta we make can be divided into 5 types</h2>
-              <ul className={styles.pastaTypes}>
-                <li>Long</li>
-                <li>Short</li>
-                <li>Sheet</li>
-                <li>Filled</li>
-                <li>Dumpling</li>
+              <ul className={styles.pastaGroups}>
+                <li className={styles.pastaTypeAnchor}>
+                  <Link to="/">Long</Link>
+                </li>
+                <li>
+                  <Link className={styles.pastaTypeAnchor} to="/">
+                    Short
+                  </Link>
+                </li>
+                <li>
+                  <Link className={styles.pastaTypeAnchor} to="/">
+                    Sheet
+                  </Link>
+                </li>
+                <li>
+                  <Link className={styles.pastaTypeAnchor} to="/">
+                    Filled
+                  </Link>
+                </li>
+                <li>
+                  <Link className={styles.pastaTypeAnchor} to="/">
+                    Dumpling
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div className={styles.allTypesContainer}>
+              <h3 className={styles.type}>Long</h3>
+              <ul className={styles.longList}>
+                <li className={styles.typeBox}>
+                  <div>
+                    <p>Angel's Hair</p>
+                  </div>
+                </li>
+                <li className={styles.typeBox}>
+                  <div>
+                    <p>Bucatini</p>
+                  </div>
+                </li>
+                <li className={styles.typeBox}>
+                  <div>
+                    <p>Fettuccine</p>
+                  </div>
+                </li>
+                <li className={styles.typeBox}>
+                  <div>
+                    <p>Spaghetti</p>
+                  </div>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Linguine</p>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Pappardelle</p>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Tagliatelle</p>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Vermicelli</p>
+                </li>
+              </ul>
+              <h3 className={styles.type}>Short</h3>
+              <ul className={styles.shortList}>
+                <li className={styles.typeBox}>
+                  <p>Campanelle</p>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Casarecce</p>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Cavatappi</p>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Fusilli</p>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Radiatori</p>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Rotini</p>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Elbows</p>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Farfalle</p>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Gemelli</p>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Rotelli</p>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Rigatoni</p>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Orecchiette</p>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Ziti</p>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Conchiglie</p>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Orzo</p>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Ditalini</p>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Penne</p>
+                </li>
+              </ul>
+              <h3 className={styles.type}>Sheet</h3>
+              <ul className={styles.sheetList}>
+                <li className={styles.typeBox}>
+                  <p>Lasagne</p>
+                </li>
+              </ul>
+              <h3 className={styles.type}>Filled</h3>
+              <ul className={styles.filledList}>
+                <li className={styles.typeBox}>
+                  <p>Tortellini</p>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Ravioli</p>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Manicotti</p>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Cannelloni</p>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Jumbo shells</p>
+                </li>
+                <li className={styles.typeBox}>
+                  <p>Mezzelune</p>
+                </li>
+              </ul>
+              <h3 className={styles.type}>Dumpling</h3>
+              <ul className={styles.dumplingList}>
+                <li className={styles.typeBox}>
+                  <p>Gnocchi</p>
+                </li>
               </ul>
             </div>
           </div>

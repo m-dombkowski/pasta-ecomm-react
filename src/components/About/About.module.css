@@ -79,10 +79,11 @@
 }
 
 .pastaTypesContainer {
+  margin: 10rem 0;
   text-align: center;
 }
 
-.pastaTypes {
+.pastaGroups {
   display: flex;
   width: 100%;
   gap: 4rem;
@@ -91,3 +92,57 @@
   justify-content: center;
   padding: 0;
 }
+
+.pastaTypeAnchor {
+  transition: all 0.3s;
+  position: relative;
+}
+
+.pastaTypeAnchor::after {
+  content: "";
+  display: block;
+  border-bottom: 2px solid #000;
+  width: 0;
+  position: absolute;
+  left: 0;
+  -webkit-transition: 0.5s ease;
+  transition: 0.5s ease;
+}
+
+.pastaTypeAnchor:hover::after {
+  width: 100%;
+}
+
+.type {
+  margin-bottom: 5rem;
+}
+
+.typeBox {
+  box-shadow: 2px 2px 8px -4px;
+  border: 1px solid #dcdde1;
+}
+
+.allTypesContainer ul li {
+  text-align: center;
+}
+
+.longList,
+.shortList,
+.sheetList,
+.filledList,
+.dumplingList {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem;
+  margin-bottom: 10rem;
+}
+
+/*
+Angel's Hair
+Bucatini
+Fettuccine
+Spaghetti
+Linguine
+Vermicelli
+*/
