@@ -7,7 +7,7 @@ const Hero = () => {
     <section className={styles.heroSection}>
       <div className={styles.contentContainer}>
         <h1 className={styles.title}>Pasta is love, pasta is life!</h1>
-        <Link className={styles.button} to="/">
+        <Link className={styles.button} to="/about">
           Find out more
         </Link>
       </div>
