@@ -3,9 +3,6 @@ import "../../fonts/fonts.css";
 import pastaImg from "../../assets/pastaRaw.jpg";
 import sparkles from "../../assets/sparkles.jpg";
 import { Link } from "react-router-dom";
-import pappardelle from "../../assets/pappardelle.jpg";
-import tagliatelle from "../../assets/tagliatelle.jpg";
-import vermicelli from "../../assets/vermicelli.jpg";
 
 const About = () => {
   return (

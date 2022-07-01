@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import MainPage from "./pages/MainPage/MainPage";
 import Navigation from "./components/Navigation/Navigation";
 import AboutUsPage from "./pages/AboutUsPage/AboutUsPage";
+import ProductsPage from "./pages/ProductsPage/ProductsPage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/about" element={<AboutUsPage />} />
+        <Route path="/products" element={<ProductsPage />} />
       </Routes>
     </Fragment>
   );
