@@ -1,19 +1,35 @@
-import axios from "axios";
+import { Fragment, useEffect, useState } from "react";
+import { getData } from "../../firebase/fetchingData";
 import styles from "./Products.module.css";
 
 const Products = () => {
-  const clickHandler = async () => {
-    const { data } = await axios.get(
-      "https://pasta-shop-f0b05-default-rtdb.europe-west1.firebasedatabase.app/type.json"
-    );
+  const [pastaArr, setPastaArr] = useState([]);
 
-    console.log(data);
-  };
+  useEffect(() => {
+    const initializeLongPasta = async () => {
+      const data = await getData(process.env.REACT_APP_FIREBASE_URL);
+      for (const type in data) {
+        for (const name in data[type]) {
+          if (!pastaArr.includes(name)) {
+            setPastaArr((prevState) => [...prevState, name]);
+          }
+        }
+      }
+    };
+
+    initializeLongPasta().catch((error) => console.error(error));
+  }, [pastaArr]);
 
   return (
-    <div className={styles.container}>
-      <button onClick={clickHandler}>Click me</button>
-    </div>
+    <Fragment>
+      <div className={styles.container}>
+        <ul>
+          {pastaArr.map((element) => (
+            <li key={Math.random()}>{element}</li>
+          ))}
+        </ul>
+      </div>
+    </Fragment>
   );
 };
 
