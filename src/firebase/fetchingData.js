@@ -1,9 +1,12 @@
 import axios from "axios";
 
-export const getData = async (uri) => {
-  const { data } = await axios.get(uri);
+export const getPastaTypes = async (url) => {
+  const { data } = await axios.get(`${url}/type.json`);
 
   return data;
+};
 
-  //   const key = Object.keys(data);
+export const getSpecificPasta = async (url, typeName) => {
+  const { data } = await axios.get(`${url}/type/${typeName}.json`);
+  return data;
 };

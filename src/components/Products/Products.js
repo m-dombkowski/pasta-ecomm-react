@@ -1,33 +1,63 @@
-import { Fragment, useEffect, useState } from "react";
-import { getData } from "../../firebase/fetchingData";
+import { Fragment } from "react";
+import { getPastaTypes } from "../../firebase/fetchingData";
+import PastaType from "../PastaType/PastaType";
 import styles from "./Products.module.css";
 
 const Products = () => {
-  const [pastaArr, setPastaArr] = useState([]);
-
-  useEffect(() => {
-    const initializeLongPasta = async () => {
-      const data = await getData(process.env.REACT_APP_FIREBASE_URL);
-      for (const type in data) {
-        for (const name in data[type]) {
-          if (!pastaArr.includes(name)) {
-            setPastaArr((prevState) => [...prevState, name]);
-          }
-        }
+  const specificPastaTypeObj = async (typeName) => {
+    const data = await getPastaTypes(process.env.REACT_APP_FIREBASE_URL);
+    for (const name in data) {
+      if (name === typeName) {
+        return data[name];
       }
-    };
+    }
+  };
 
-    initializeLongPasta().catch((error) => console.error(error));
-  }, [pastaArr]);
+  const specificPastaTypeNames = async (array, setArray, typeName) => {
+    const data = await specificPastaTypeObj(typeName);
+    for (const name in data) {
+      if (!array.includes(name)) {
+        setArray((prevState) => [...prevState, name]);
+      }
+    }
+  };
+  const getPrice = async (typeName) => {
+    const data = await specificPastaTypeObj(typeName);
+    for (const price in data) {
+      console.log(data[price]);
+    }
+  };
 
   return (
     <Fragment>
       <div className={styles.container}>
-        <ul>
-          {pastaArr.map((element) => (
-            <li key={Math.random()}>{element}</li>
-          ))}
-        </ul>
+        <PastaType
+          title="Long"
+          type="long"
+          typeNames={specificPastaTypeNames}
+          price={getPrice}
+        />
+        <PastaType
+          title="Short"
+          type="short"
+          typeNames={specificPastaTypeNames}
+        />
+
+        <PastaType
+          title="Sheet"
+          type="sheet"
+          typeNames={specificPastaTypeNames}
+        />
+        <PastaType
+          title="Filled"
+          type="filled"
+          typeNames={specificPastaTypeNames}
+        />
+        <PastaType
+          title="Dumpling"
+          type="dumpling"
+          typeNames={specificPastaTypeNames}
+        />
       </div>
     </Fragment>
   );
