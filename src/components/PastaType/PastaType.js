@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import styles from "./PastaType.module.css";
 
 const PastaType = (props) => {
   const [arr, setArr] = useState([]);
@@ -7,21 +8,22 @@ const PastaType = (props) => {
     let array = [];
     const initializeArray = async () => {
       const data = await props.specificSubTypeObj(array, props.type);
-
-      setArr(data);
+      for (let i = 0; i < data.length; i++) {
+        setArr(data);
+      }
     };
 
     initializeArray().catch((err) => console.log(err));
-  });
+  }, [props]);
 
   return (
-    <div>
-      <h1>{props.title}</h1>
-      <ul>
+    <div className={styles.mainContainer}>
+      <h1 className={styles.type}>{props.title}</h1>
+      <ul className={styles.list}>
         {arr.map((element) => (
-          <li key={Math.random()}>
-            {element.Name}
-            <p>{element.Price}</p>
+          <li key={Math.random()} className={styles.typeBox}>
+            <p className={styles.pastaName}>{element.Name}</p>
+            <p className={styles.pastaPrice}>{element.Price} $/kg</p>
           </li>
         ))}
       </ul>
@@ -30,12 +32,3 @@ const PastaType = (props) => {
 };
 
 export default PastaType;
-
-/*
-  const data = await specificPastaTypeObj(array, type);
-
-    for (let i = 0; i < data.length; i++) {
-      a.push(data[i]);
-    }
-    return a;
-*/

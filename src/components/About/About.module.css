@@ -94,6 +94,7 @@
 }
 
 .pastaTypeAnchor {
+  font-size: 2.5rem;
   transition: all 0.3s;
   position: relative;
 }

@@ -1,0 +1,28 @@
+.mainContainer {
+  max-width: 1400px;
+  /* text-align: center; */
+}
+
+.type {
+  margin-bottom: 5rem;
+}
+.mainContainer ul li {
+  text-align: center;
+}
+
+.typeBox {
+  box-shadow: 3px 3px 8px -4px;
+  border: 1px solid #dcdde1;
+  min-width: 200px;
+  min-height: 150px;
+  font-size: 1.5rem;
+  padding: 1rem 2rem;
+}
+
+.list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem;
+  margin-bottom: 10rem;
+}
