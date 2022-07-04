@@ -1,15 +1,18 @@
-import { useState } from "react";
-import { randomID } from "../../helpers/helpers";
+import { useEffect, useState } from "react";
 
 const PastaType = (props) => {
   const [arr, setArr] = useState([]);
 
-  props.typeNames(arr, setArr, props.type).catch((err) => console.error(err));
+  useEffect(() => {
+    let array = [];
+    const initializeArray = async () => {
+      const data = await props.specificSubTypeObj(array, props.type);
 
-  props
-    .price("long")
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+      setArr(data);
+    };
+
+    initializeArray().catch((err) => console.log(err));
+  });
 
   return (
     <div>
@@ -17,8 +20,8 @@ const PastaType = (props) => {
       <ul>
         {arr.map((element) => (
           <li key={Math.random()}>
-            {element}
-            <p>{element.price}</p>
+            {element.Name}
+            <p>{element.Price}</p>
           </li>
         ))}
       </ul>
@@ -29,10 +32,10 @@ const PastaType = (props) => {
 export default PastaType;
 
 /*
-https://pasta-shop-f0b05-default-rtdb.europe-west1.firebasedatabase.app/type/filled
+  const data = await specificPastaTypeObj(array, type);
 
-
-https://pasta-shop-f0b05-default-rtdb.europe-west1.firebasedatabase.app/type/dumpling
-
-https://pasta-shop-f0b05-default-rtdb.europe-west1.firebasedatabase.app/type/long
+    for (let i = 0; i < data.length; i++) {
+      a.push(data[i]);
+    }
+    return a;
 */

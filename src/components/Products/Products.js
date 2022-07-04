@@ -4,7 +4,7 @@ import PastaType from "../PastaType/PastaType";
 import styles from "./Products.module.css";
 
 const Products = () => {
-  const specificPastaTypeObj = async (typeName) => {
+  const pastaObj = async (typeName) => {
     const data = await getPastaTypes(process.env.REACT_APP_FIREBASE_URL);
     for (const name in data) {
       if (name === typeName) {
@@ -13,19 +13,12 @@ const Products = () => {
     }
   };
 
-  const specificPastaTypeNames = async (array, setArray, typeName) => {
-    const data = await specificPastaTypeObj(typeName);
+  const specificPastaTypeObj = async (array, typeName) => {
+    const data = await pastaObj(typeName);
     for (const name in data) {
-      if (!array.includes(name)) {
-        setArray((prevState) => [...prevState, name]);
-      }
+      array.push(data[name]);
     }
-  };
-  const getPrice = async (typeName) => {
-    const data = await specificPastaTypeObj(typeName);
-    for (const price in data) {
-      console.log(data[price]);
-    }
+    return array;
   };
 
   return (
@@ -34,29 +27,28 @@ const Products = () => {
         <PastaType
           title="Long"
           type="long"
-          typeNames={specificPastaTypeNames}
-          price={getPrice}
+          specificSubTypeObj={specificPastaTypeObj}
         />
         <PastaType
           title="Short"
           type="short"
-          typeNames={specificPastaTypeNames}
+          specificSubTypeObj={specificPastaTypeObj}
         />
 
         <PastaType
           title="Sheet"
           type="sheet"
-          typeNames={specificPastaTypeNames}
+          specificSubTypeObj={specificPastaTypeObj}
         />
         <PastaType
           title="Filled"
           type="filled"
-          typeNames={specificPastaTypeNames}
+          specificSubTypeObj={specificPastaTypeObj}
         />
         <PastaType
           title="Dumpling"
           type="dumpling"
-          typeNames={specificPastaTypeNames}
+          specificSubTypeObj={specificPastaTypeObj}
         />
       </div>
     </Fragment>
