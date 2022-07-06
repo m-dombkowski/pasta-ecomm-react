@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { getPastaTypes } from "../../firebase/fetchingData";
+import FilterBar from "../FilterBar/FilterBar";
 import PastaType from "../PastaType/PastaType";
 import styles from "./Products.module.css";
 
@@ -22,8 +23,9 @@ const Products = () => {
   };
 
   return (
-    <Fragment>
-      <div className={styles.container}>
+    <div className={styles.container}>
+      <FilterBar />
+      <div className={styles.productsContainer}>
         <PastaType
           title="Long"
           type="long"
@@ -51,7 +53,7 @@ const Products = () => {
           specificSubTypeObj={specificPastaTypeObj}
         />
       </div>
-    </Fragment>
+    </div>
   );
 };
 
