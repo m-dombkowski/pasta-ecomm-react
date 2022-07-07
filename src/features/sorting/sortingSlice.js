@@ -17,7 +17,7 @@ export const initializeArray = createAsyncThunk(
 );
 
 export const sortSlice = createSlice({
-  name: "counter",
+  name: "sort",
   initialState,
 
   reducers: {

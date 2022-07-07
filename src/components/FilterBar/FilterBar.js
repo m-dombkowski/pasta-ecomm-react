@@ -13,6 +13,12 @@ const FilterBar = (props) => {
     dispatch(initializeArray(setTypesArray));
   }, [dispatch]);
 
+  useEffect(() => {
+    if (props.filterState.length === 0) {
+      props.setFilterState(typesArray);
+    }
+  }, [props, typesArray]);
+
   const checkBoxHandler = (event) => {
     const filterName = event.target.value;
     if (props.filterState.length === 5) {
@@ -23,6 +29,10 @@ const FilterBar = (props) => {
       } else {
         props.setFilterState((prevState) =>
           prevState.filter((element) => {
+            if (!element) {
+              console.log("here");
+              return props.setFilterState(typesArray);
+            }
             return element !== filterName;
           })
         );
