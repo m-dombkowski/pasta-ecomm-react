@@ -11,8 +11,3 @@
   align-items: center;
   flex-direction: column;
 }
-
-.container button {
-  font-size: 2rem;
-  padding: 1rem 2rem;
-}

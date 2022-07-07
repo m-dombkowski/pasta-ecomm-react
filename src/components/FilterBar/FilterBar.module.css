@@ -1,2 +1,30 @@
-.filterContainer {
+.filtersContainer {
+  min-width: 250px;
+  border: 1px solid #000;
+  padding: 2rem;
+}
+
+.header {
+  font-size: 2rem;
+  margin: 2rem 0;
+}
+
+.showAllButton {
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #000;
+  margin-bottom: 2rem;
+}
+
+.showAllButton:hover {
+  cursor: pointer;
+}
+
+.typeFilterContainer {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 0.5rem;
 }
