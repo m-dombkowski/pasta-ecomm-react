@@ -1,23 +1,17 @@
 import { useEffect, useState } from "react";
-import { getPastaTypes } from "../../firebase/fetchingData";
+
 import styles from "./FilterBar.module.css";
 import { capitalizeFirstLetter } from "../../helpers/helpers";
-import types from "@testing-library/user-event";
+import { useDispatch } from "react-redux/es/exports";
+import { initializeArray } from "../../features/sorting/sortingSlice";
 
 const FilterBar = (props) => {
+  const dispatch = useDispatch();
   const [typesArray, setTypesArray] = useState([]);
 
   useEffect(() => {
-    const initializeTypes = async () => {
-      const data = await getPastaTypes(process.env.REACT_APP_FIREBASE_URL);
-
-      for (const type in data) {
-        setTypesArray((prevState) => [...prevState, type]);
-      }
-    };
-
-    initializeTypes().catch((err) => console.error(err));
-  }, []);
+    dispatch(initializeArray(setTypesArray));
+  }, [dispatch]);
 
   const checkBoxHandler = (event) => {
     const filterName = event.target.value;
@@ -45,14 +39,14 @@ const FilterBar = (props) => {
     props.setFilterState(typesArray);
   };
 
-  console.log(props.filterState);
+  console.log(props.filterState.length);
 
   return (
     <div className={styles.filtersContainer}>
-      <section>
+      <section className={styles.filterSection}>
         <header className={styles.header}>Filter by type</header>
         <button className={styles.showAllButton} onClick={showAllButtonHandler}>
-          Show all
+          Show all types
         </button>
         {typesArray.map((element) => (
           <div key={element} className={styles.typeFilterContainer}>
@@ -68,8 +62,29 @@ const FilterBar = (props) => {
           </div>
         ))}
       </section>
+      <section>
+        <header className={styles.header}>Sort Subtypes By</header>
+        <select onChange={props.sortHandler}>
+          <option value="ascendingName">Name (A-Z)</option>
+          <option value="descendingName">Name (Z-A)</option>
+          <option value="ascendingPrice">Price (lowest to highest)</option>
+          <option value="descendingPrice">Price (Highest to lowest</option>
+        </select>
+      </section>
     </div>
   );
 };
 
 export default FilterBar;
+
+/*  Old useEffect 
+    const initializeTypes = async () => {
+      const data = await getPastaTypes(process.env.REACT_APP_FIREBASE_URL);
+
+      for (const type in data) {
+        setTypesArray((prevState) => [...prevState,type]);
+      }
+    };
+
+    initializeTypes().catch((err) => console.error(err));
+*/

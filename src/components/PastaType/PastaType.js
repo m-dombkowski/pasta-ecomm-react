@@ -3,7 +3,6 @@ import styles from "./PastaType.module.css";
 
 const PastaType = (props) => {
   const [arr, setArr] = useState([]);
-
   useEffect(() => {
     let array = [];
     const initializeArray = async () => {
