@@ -7,6 +7,7 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "./firebase/main";
+import { SortingProvider } from "./context/sort-context";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -14,8 +15,10 @@ initializeApp(firebaseConfig);
 
 root.render(
   <BrowserRouter>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <SortingProvider>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </SortingProvider>
   </BrowserRouter>
 );

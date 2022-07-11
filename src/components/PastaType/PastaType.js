@@ -1,33 +1,43 @@
-import { useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
+import { specificPastaTypeObj } from "../../firebase/fetchingData";
 import styles from "./PastaType.module.css";
 
 const PastaType = (props) => {
-  const [arr, setArr] = useState([]);
-  useEffect(() => {
-    let array = [];
-    const initializeArray = async () => {
-      const data = await props.specificSubTypeObj(array, props.type);
-      for (let i = 0; i < data.length; i++) {
-        setArr(data);
-      }
-    };
+  const { title, state, type } = props;
 
-    initializeArray().catch((err) => console.log(err));
-  }, [props]);
+  console.log(state);
 
   return (
-    <div className={styles.mainContainer}>
-      <h1 className={styles.type}>{props.title}</h1>
-      <ul className={styles.list}>
-        {arr.map((element) => (
-          <li key={Math.random()} className={styles.typeBox}>
-            <p className={styles.pastaName}>{element.Name}</p>
-            <p className={styles.pastaPrice}>{element.Price} $/kg</p>
-          </li>
-        ))}
-      </ul>
+    <div>
+      <div className={styles.mainContainer}>
+        <h1 className={styles.type}>{title}</h1>
+        <ul className={styles.list}>
+          {state.map((element) => {
+            return (
+              <li key={Math.random()} className={styles.typeBox}>
+                <p className={styles.pastaName}>{element.Name}</p>
+                <p className={styles.pastaPrice}>{element.Price} $/kg</p>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </div>
   );
 };
 
 export default PastaType;
+
+// console.log(context.initializeArray());
+
+// const [p, setP] = useState([]);
+
+// const test = useCallback(async () => {
+//   let arr = [];
+//   const data = await specificPastaTypeObj(arr, type);
+//   setP(data);
+// }, [type]);
+
+// useEffect(() => {
+//   test();
+// }, [test]);

@@ -1,18 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./FilterBar.module.css";
 import { capitalizeFirstLetter } from "../../helpers/helpers";
 import { useDispatch } from "react-redux/es/exports";
 import { initializeFiltersArray } from "../../features/sorting/sortingSlice";
-import { specificPastaTypeObj } from "../../firebase/fetchingData";
-import SortingContext from "../../context/sort-context";
 
 const FilterBar = (props) => {
   const dispatch = useDispatch();
   const [typesArray, setTypesArray] = useState([]);
   const [toSort, setToSort] = useState([]);
-  const context = useContext(SortingContext);
-
-  let arr = [];
 
   useEffect(() => {
     dispatch(initializeFiltersArray(setTypesArray));
@@ -25,6 +20,7 @@ const FilterBar = (props) => {
   }, [props, typesArray]);
 
   const checkBoxHandler = (event) => {
+    props.onChange();
     const filterName = event.target.value;
     if (props.filterState.length === 5) {
       props.setFilterState([filterName]);

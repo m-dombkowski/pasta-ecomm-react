@@ -1,13 +1,17 @@
-import { Fragment, useState } from "react";
-import { getPastaTypes } from "../../firebase/fetchingData";
+import { useEffect, useState, useRef, useCallback, useMemo } from "react";
+
+import {
+  getSpecificPasta,
+  specificPastaTypeObj,
+} from "../../firebase/fetchingData";
 import { capitalizeFirstLetter } from "../../helpers/helpers";
 import FilterBar from "../FilterBar/FilterBar";
 import PastaType from "../PastaType/PastaType";
 import styles from "./Products.module.css";
-import { useDispatch } from "react-redux";
-import { ascendingPrice } from "../../features/sorting/sortingSlice";
 
 const Products = () => {
+  const [state, setState] = useState([]);
+  // const state = [];
   const [filters, setFilters] = useState([
     "dumpling",
     "filled",
@@ -15,47 +19,37 @@ const Products = () => {
     "sheet",
     "short",
   ]);
-  const dispatch = useDispatch();
 
-  const pastaObj = async (typeName) => {
-    const data = await getPastaTypes(process.env.REACT_APP_FIREBASE_URL);
-    for (const name in data) {
-      if (name === typeName) {
-        return data[name];
-      }
+  const test2 = useCallback(async () => {
+    for (let i = 0; i < filters.length; i++) {
+      let arr = [];
+      const data = await specificPastaTypeObj(arr, filters[i]);
+      setState(data);
     }
-  };
+  }, [filters]);
 
-  const specificPastaTypeObj = async (array, typeName) => {
-    const data = await pastaObj(typeName);
-    for (const name in data) {
-      array.push(data[name]);
-    }
-    return array;
-  };
-
-  // const sortHandler = (event, array) => {
-  //   const sortType = event.target.value;
-  //   switch (sortType) {
-  //     case "ascendingPrice":
-  //       dispatch(ascendingPrice());
+  // const test2 = useCallback(async () => {
+  //   for (let i = 0; i < filters.length; i++) {
+  //     let arr = [];
+  //     const data = await specificPastaTypeObj(arr, filters[i]);
+  //     setState((prevState) => [...prevState, data]);
   //   }
-  // };
+  // }, [filters]);
+
+  useEffect(() => {
+    test2();
+  }, [test2]);
 
   return (
     <div className={styles.container}>
-      <FilterBar
-        // sortHandler={sortHandler}
-        filterState={filters}
-        setFilterState={setFilters}
-      />
+      <FilterBar filterState={filters} setFilterState={setFilters} />
       <div className={styles.productsContainer}>
         {filters.map((element) => (
           <PastaType
             key={Math.random()}
             title={capitalizeFirstLetter(element)}
             type={element}
-            specificSubTypeObj={specificPastaTypeObj}
+            state={state}
           />
         ))}
       </div>

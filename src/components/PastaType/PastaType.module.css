@@ -5,9 +5,14 @@
 
 .type {
   margin-bottom: 5rem;
+  text-align: start;
 }
 .mainContainer ul li {
   text-align: center;
+}
+
+.mainContainer {
+  width: 100%;
 }
 
 .typeBox {

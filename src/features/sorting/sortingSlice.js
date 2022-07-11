@@ -5,8 +5,8 @@ const initialState = {
   arrayToSort: [],
 };
 
-export const initializeArray = createAsyncThunk(
-  "sort/fetchArray",
+export const initializeFiltersArray = createAsyncThunk(
+  "sort",
   async (setArray) => {
     const data = await getPastaTypes(process.env.REACT_APP_FIREBASE_URL);
 
@@ -22,16 +22,16 @@ export const sortSlice = createSlice({
 
   reducers: {
     ascendingName: (arrayToSort) => {
-      arrayToSort.map((element) => element.name.sort((a, b) => a - b));
+      return arrayToSort.map((element) => element.name.sort((a, b) => a - b));
     },
     descendingName: (arrayToSort) => {
-      arrayToSort.map((element) => element.name.sort((a, b) => a + b));
+      return arrayToSort.map((element) => element.name.sort((a, b) => a + b));
     },
     ascendingPrice: (arrayToSort) => {
-      arrayToSort.map((element) => element.price.sort((a, b) => a - b));
+      return arrayToSort.map((element) => element.price.sort((a, b) => a - b));
     },
     descendingPrice: (arrayToSort) => {
-      arrayToSort.map((element) => element.price.sort((a, b) => a + b));
+      return arrayToSort.map((element) => element.price.sort((a, b) => a + b));
     },
   },
 });
@@ -42,5 +42,7 @@ export const {
   ascendingPrice,
   descendingPrice,
 } = sortSlice.actions;
+
+export const selectArray = (state) => state.sorting.arrayToSort;
 
 export default sortSlice.reducer;
