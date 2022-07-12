@@ -31,3 +31,33 @@
   gap: 3rem;
   margin-bottom: 10rem;
 }
+
+.cartForm {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.numberInput {
+  width: 50px;
+  font-size: 1rem;
+  text-align: center;
+  padding: 0.2rem 0.4rem;
+}
+
+.submitButton {
+  font-size: 1rem;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
