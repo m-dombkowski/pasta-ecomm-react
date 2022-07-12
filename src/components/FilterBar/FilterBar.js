@@ -1,18 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./FilterBar.module.css";
 import { capitalizeFirstLetter } from "../../helpers/helpers";
 import { useDispatch } from "react-redux/es/exports";
 import { initializeFiltersArray } from "../../features/sorting/sortingSlice";
-import { specificPastaTypeObj } from "../../firebase/fetchingData";
-import SortingContext from "../../context/sort-context";
 
 const FilterBar = (props) => {
   const dispatch = useDispatch();
   const [typesArray, setTypesArray] = useState([]);
-  const [toSort, setToSort] = useState([]);
-  const context = useContext(SortingContext);
-
-  let arr = [];
 
   useEffect(() => {
     dispatch(initializeFiltersArray(setTypesArray));
@@ -53,36 +47,10 @@ const FilterBar = (props) => {
     props.setFilterState(typesArray);
   };
 
-  const sortHandler = async (event) => {
-    const sortType = event.target.value;
-
-    switch (sortType) {
-      case "ascendingName":
-        toSort.map((element) => element.name.sort((a, b) => a - b));
-        console.log(toSort);
-        break;
-      case "descendingName":
-        toSort.map((element) => element.name.sort((a, b) => a + b));
-        console.log(toSort);
-        break;
-      case "ascendingPrice":
-        toSort.map((element) => element.price.sort((a, b) => a - b));
-        console.log(toSort);
-        break;
-      case "descendingPrice":
-        toSort.map((element) => element.price.sort((a, b) => a + b));
-        console.log(toSort);
-        break;
-      default:
-        console.log("lipa");
-        break;
-    }
-  };
-
   return (
     <div className={styles.filtersContainer}>
-      <section className={styles.filterSection}>
-        <header className={styles.header}>Filter by type</header>
+      <section className={styles.filtersSection}>
+        <header className={styles.filtersHeader}>Filter by type</header>
         <button className={styles.showAllButton} onClick={showAllButtonHandler}>
           Show all types
         </button>
@@ -100,15 +68,6 @@ const FilterBar = (props) => {
           </div>
         ))}
       </section>
-      <section>
-        <header className={styles.header}>Sort Subtypes By</header>
-        <select onChange={sortHandler}>
-          <option value="ascendingName">Name (A-Z)</option>
-          <option value="descendingName">Name (Z-A)</option>
-          <option value="descendingPrice">Price (Highest to Lowest)</option>
-          <option value="ascendingPrice">Price (Lowest to Highest)</option>
-        </select>
-      </section>
     </div>
   );
 };
@@ -125,4 +84,44 @@ export default FilterBar;
     };
 
     initializeTypes().catch((err) => console.error(err));
+
+
+
+const sortHandler = async (event) => {
+  const sortType = event.target.value;
+
+  switch (sortType) {
+    case "ascendingName":
+      toSort.map((element) => element.name.sort((a, b) => a - b));
+      console.log(toSort);
+      break;
+    case "descendingName":
+      toSort.map((element) => element.name.sort((a, b) => a + b));
+      console.log(toSort);
+      break;
+    case "ascendingPrice":
+      toSort.map((element) => element.price.sort((a, b) => a - b));
+      console.log(toSort);
+      break;
+    case "descendingPrice":
+      toSort.map((element) => element.price.sort((a, b) => a + b));
+      console.log(toSort);
+      break;
+    default:
+      console.log("lipa");
+      break;
+  }
+
+   <section>
+        <header className={styles.header}>Sort Subtypes By</header>
+        <select onChange={sortHandler}>
+          <option value="ascendingName">Name (A-Z)</option>
+          <option value="descendingName">Name (Z-A)</option>
+          <option value="descendingPrice">Price (Highest to Lowest)</option>
+          <option value="ascendingPrice">Price (Lowest to Highest)</option>
+        </select>
+      </section>
+
+};
+
 */
