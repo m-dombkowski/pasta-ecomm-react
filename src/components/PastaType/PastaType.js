@@ -1,43 +1,64 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  createRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { cartActions } from "../../features/cartSlice/cartSlice";
 
 import { specificPastaTypeObj } from "../../firebase/fetchingData";
 import styles from "./PastaType.module.css";
 
 const PastaType = (props) => {
   const { title, type } = props;
-  const numberRef = useRef();
+  const [subTypes, setSubTypes] = useState([]);
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const cart = useSelector((state) => state.cart);
+  const itemsRef = useRef([]);
 
-  const [p, setP] = useState([]);
-
-  const test = useCallback(async () => {
+  const initializeSubTypesArray = useCallback(async () => {
     let arr = [];
     const data = await specificPastaTypeObj(arr, type);
-    setP(data);
+    setSubTypes(data);
   }, [type]);
 
   useEffect(() => {
-    test();
-  }, [test]);
+    itemsRef.current = itemsRef.current.slice(0, subTypes.length);
+  }, [subTypes.length]);
 
-  const submitHandler = (event) => {
+  useEffect(() => {
+    initializeSubTypesArray();
+  }, [initializeSubTypesArray]);
+
+  const addToCartHandler = (event) => {
     event.preventDefault();
 
-    for (const key in p) {
-      if (p[key].Name === event.target.children[0].innerHTML) {
-        console.log({
-          price: p[key].Price * +numberRef.current.value,
-          name: event.target.children[0].innerHTML,
-          quantity: +numberRef.current.value,
-        });
+    for (const key in subTypes) {
+      if (subTypes[key].Name === event.target.children[0].innerHTML) {
+        dispatch(
+          cartActions.addItemToCart({
+            id: subTypes[key].id,
+            name: subTypes[key].Name,
+            price: subTypes[key].Price,
+            quantity: +itemsRef.current[key].value,
+            totalItemPrice: subTypes[key].Price * +itemsRef.current[key].value,
+          })
+        );
       }
     }
+    console.log(cart);
   };
 
-  const validateNumberInput = () => {
-    const numberValue = numberRef.current.value;
-    if (+numberValue > 9999) {
-      console.log("nope");
-    }
+  const validateNumberInput = (event) => {
+    // console.log(event.target.value);
+    // const numberValue = numberRef.current.value;
+    // if (+numberValue > 9999) {
+    //   console.log("nope");
+    //   return false;
+    // }
   };
 
   return (
@@ -45,10 +66,10 @@ const PastaType = (props) => {
       <div className={styles.mainContainer}>
         <h1 className={styles.type}>{title}</h1>
         <ul className={styles.list}>
-          {p.map((element) => {
+          {subTypes.map((element, index) => {
             return (
-              <li key={Math.random()} className={styles.typeBox}>
-                <form onSubmit={submitHandler} className={styles.cartForm}>
+              <li key={index} className={styles.typeBox}>
+                <form onSubmit={addToCartHandler} className={styles.cartForm}>
                   <label className={styles.pastaName}>{element.Name}</label>
                   <label className={styles.pastaPrice}>
                     {element.Price} $/kg
@@ -59,7 +80,7 @@ const PastaType = (props) => {
                     className={styles.numberInput}
                     step="0.1"
                     onChange={validateNumberInput}
-                    ref={numberRef}
+                    ref={(element) => (itemsRef.current[index] = element)}
                   />
                   <input
                     type="submit"
