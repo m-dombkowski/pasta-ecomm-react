@@ -49,6 +49,8 @@ const PastaType = (props) => {
         );
       }
     }
+    itemsRef.current.map((element) => (element.value = ""));
+
     console.log(cart);
   };
 

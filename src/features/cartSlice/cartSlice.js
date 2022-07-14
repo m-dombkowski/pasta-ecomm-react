@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { roundToTwo } from "../../helpers/helpers";
 
 export const cartSlice = createSlice({
   name: "cart",
@@ -30,7 +31,7 @@ export const cartSlice = createSlice({
           existingItem.quantity * existingItem.price;
       }
       state.cartItems.map((element) => {
-        return (state.totalCartPrice += element.totalItemPrice);
+        return roundToTwo((state.totalCartPrice += element.totalItemPrice));
       });
     },
   },

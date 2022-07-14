@@ -12,3 +12,7 @@ export const randomID = () => {
 export const capitalizeFirstLetter = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
+
+export const roundToTwo = (num) => {
+  return +(Math.round(num + "e+2") + "e-2");
+};
