@@ -27,8 +27,9 @@ export const cartSlice = createSlice({
         });
       } else {
         existingItem.quantity += newItem.quantity;
-        existingItem.totalItemPrice =
-          existingItem.quantity * existingItem.price;
+        existingItem.totalItemPrice = roundToTwo(
+          existingItem.quantity * existingItem.price
+        );
       }
       state.cartItems.map((element) => {
         return roundToTwo((state.totalCartPrice += element.totalItemPrice));

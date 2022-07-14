@@ -3,8 +3,14 @@ import pastaSvg from "../../assets/pastaSvg.svg";
 import userSvg from "../../assets/userSvg.svg";
 import cartSvg from "../../assets/cartSvg.svg";
 import NavElement from "../NavElement/NavElement";
+import { useSelector } from "react-redux";
+import { roundToTwo } from "../../helpers/helpers";
 
 const Navigation = () => {
+  const cartWorth = useSelector((state) => state.cart.totalCartPrice);
+
+  console.log(cartWorth);
+
   return (
     <nav className={styles.navigation}>
       <ul className={styles.naviList}>
@@ -41,6 +47,7 @@ const Navigation = () => {
             svgClass={[styles.svg, styles.soloIcon].join(" ")}
             alt="shopping cart icon"
           />
+          <p className={styles.cartWorth}>{roundToTwo(cartWorth)}$</p>
         </div>
       </ul>
     </nav>

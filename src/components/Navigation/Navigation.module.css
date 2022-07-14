@@ -25,18 +25,19 @@
 .rightNavSide {
   display: flex;
   margin-left: auto;
-
   gap: 1rem;
+  align-items: flex-end;
 }
 
 .productsAnchor {
   display: flex;
-  align-items: center;
+  align-self: center;
 }
 
 ul li a {
   text-decoration: none;
   color: inherit;
+  align-self: center;
 }
 .svg {
   height: inherit;
@@ -70,4 +71,8 @@ ul li a {
 .productsAnchor:hover,
 .soloIcon:hover {
   background-color: #f4f4f4;
+}
+
+.cartWorth {
+  align-self: flex-start;
 }

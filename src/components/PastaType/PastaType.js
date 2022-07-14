@@ -1,10 +1,4 @@
-import React, {
-  createRef,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { cartActions } from "../../features/cartSlice/cartSlice";
 
@@ -15,7 +9,6 @@ const PastaType = (props) => {
   const { title, type } = props;
   const [subTypes, setSubTypes] = useState([]);
   const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cart.cartItems);
   const cart = useSelector((state) => state.cart);
   const itemsRef = useRef([]);
 
