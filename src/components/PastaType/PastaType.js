@@ -1,16 +1,12 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { cartActions } from "../../features/cartSlice/cartSlice";
+import React, { Fragment, useCallback, useEffect, useState } from "react";
 
 import { specificPastaTypeObj } from "../../firebase/fetchingData";
+import SinglePastaType from "../SinglePastaType/SinglePastaType";
 import styles from "./PastaType.module.css";
 
 const PastaType = (props) => {
   const { title, type } = props;
   const [subTypes, setSubTypes] = useState([]);
-  const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
-  const itemsRef = useRef([]);
 
   const initializeSubTypesArray = useCallback(async () => {
     let arr = [];
@@ -19,71 +15,25 @@ const PastaType = (props) => {
   }, [type]);
 
   useEffect(() => {
-    itemsRef.current = itemsRef.current.slice(0, subTypes.length);
-  }, [subTypes.length]);
-
-  useEffect(() => {
     initializeSubTypesArray();
   }, [initializeSubTypesArray]);
 
-  const addToCartHandler = (event) => {
-    event.preventDefault();
-
-    for (const key in subTypes) {
-      if (subTypes[key].Name === event.target.children[0].innerHTML) {
-        // validateNumberInput(+itemsRef.current[key].value);
-        dispatch(
-          cartActions.addItemToCart({
-            id: subTypes[key].id,
-            name: subTypes[key].Name,
-            price: subTypes[key].Price,
-            quantity: +itemsRef.current[key].value,
-            totalItemPrice: subTypes[key].Price * +itemsRef.current[key].value,
-          })
-        );
-      }
-    }
-    itemsRef.current.map((element) => (element.value = ""));
-  };
-
-  // const validateNumberInput = (quantityInput) => {
-  //   console.log(quantityInput);
-
-  //   if (quantityInput <= 0) {
-  //     console.log("nie mozna dodac 0 lub ujemnej liczby produktow");
-  //     return;
-  //   }
-  // };
+  console.log(subTypes);
 
   return (
     <div>
       <div className={styles.mainContainer}>
         <h1 className={styles.type}>{title}</h1>
         <ul className={styles.list}>
-          {subTypes.map((element, index) => {
-            return (
-              <li key={index} className={styles.typeBox}>
-                <form onSubmit={addToCartHandler} className={styles.cartForm}>
-                  <label className={styles.pastaName}>{element.Name}</label>
-                  <label className={styles.pastaPrice}>
-                    {element.Price} $/kg
-                  </label>
-
-                  <input
-                    type="number"
-                    className={styles.numberInput}
-                    step="0.1"
-                    ref={(element) => (itemsRef.current[index] = element)}
-                  />
-                  <input
-                    type="submit"
-                    value="Add to Cart"
-                    className={styles.submitButton}
-                  />
-                </form>
-              </li>
-            );
-          })}
+          {subTypes.map((element, index) => (
+            <li key={index} className={styles.typeBox}>
+              <SinglePastaType
+                subTypes={subTypes}
+                index={index}
+                loopElement={element}
+              />
+            </li>
+          ))}
         </ul>
       </div>
     </div>

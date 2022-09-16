@@ -7,6 +7,7 @@ export const cartSlice = createSlice({
   initialState: {
     cartItems: [],
     totalCartPrice: 0,
+    errorMessage: "",
   },
 
   reducers: {
@@ -30,8 +31,7 @@ export const cartSlice = createSlice({
           existingItem.quantity * existingItem.price
         );
       } else {
-        console.log("nie mozna tak");
-        // return;
+        state.errorMessage = "nie mozna tak";
       }
 
       state.cartItems.map((element) => {
