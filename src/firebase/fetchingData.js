@@ -1,8 +1,6 @@
 import axios from "axios";
 
 export const getPastaTypes = async (url) => {
-  console.log(url);
-  console.log(`${url}/type.json`);
   const { data } = await axios.get(`${url}/type.json`);
   return data;
 };

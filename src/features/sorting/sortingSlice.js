@@ -8,7 +8,9 @@ const initialState = {
 export const initializeFiltersArray = createAsyncThunk(
   "sort",
   async (setArray) => {
-    const data = await getPastaTypes(process.env.REACT_APP_FIREBASE_KEY);
+    const data = await getPastaTypes(process.env.REACT_APP_FIREBASE_API_KEY);
+
+    console.log(data);
 
     for (const type in data) {
       setArray((prevState) => [...prevState, type]);

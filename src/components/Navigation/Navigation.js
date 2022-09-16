@@ -9,8 +9,6 @@ import { roundToTwo } from "../../helpers/helpers";
 const Navigation = () => {
   const cartWorth = useSelector((state) => state.cart.totalCartPrice);
 
-  console.log(cartWorth);
-
   return (
     <nav className={styles.navigation}>
       <ul className={styles.naviList}>

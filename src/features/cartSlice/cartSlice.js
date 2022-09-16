@@ -16,7 +16,6 @@ export const cartSlice = createSlice({
         (item) => item.id === newItem.id
       );
       state.totalCartPrice = 0;
-
       if (!existingItem) {
         state.cartItems.push({
           id: newItem.id,
@@ -25,12 +24,16 @@ export const cartSlice = createSlice({
           name: newItem.name,
           totalItemPrice: newItem.price * newItem.quantity,
         });
-      } else {
+      } else if (existingItem && action.payload.quantity > 0) {
         existingItem.quantity += newItem.quantity;
         existingItem.totalItemPrice = roundToTwo(
           existingItem.quantity * existingItem.price
         );
+      } else {
+        console.log("nie mozna tak");
+        // return;
       }
+
       state.cartItems.map((element) => {
         return roundToTwo((state.totalCartPrice += element.totalItemPrice));
       });

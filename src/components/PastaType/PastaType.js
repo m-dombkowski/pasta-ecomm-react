@@ -31,6 +31,7 @@ const PastaType = (props) => {
 
     for (const key in subTypes) {
       if (subTypes[key].Name === event.target.children[0].innerHTML) {
+        // validateNumberInput(+itemsRef.current[key].value);
         dispatch(
           cartActions.addItemToCart({
             id: subTypes[key].id,
@@ -43,18 +44,16 @@ const PastaType = (props) => {
       }
     }
     itemsRef.current.map((element) => (element.value = ""));
-
-    console.log(cart);
   };
 
-  const validateNumberInput = (event) => {
-    // console.log(event.target.value);
-    // const numberValue = numberRef.current.value;
-    // if (+numberValue > 9999) {
-    //   console.log("nope");
-    //   return false;
-    // }
-  };
+  // const validateNumberInput = (quantityInput) => {
+  //   console.log(quantityInput);
+
+  //   if (quantityInput <= 0) {
+  //     console.log("nie mozna dodac 0 lub ujemnej liczby produktow");
+  //     return;
+  //   }
+  // };
 
   return (
     <div>
@@ -74,7 +73,6 @@ const PastaType = (props) => {
                     type="number"
                     className={styles.numberInput}
                     step="0.1"
-                    onChange={validateNumberInput}
                     ref={(element) => (itemsRef.current[index] = element)}
                   />
                   <input
