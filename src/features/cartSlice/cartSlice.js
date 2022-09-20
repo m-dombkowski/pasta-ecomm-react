@@ -43,6 +43,10 @@ export const cartSlice = createSlice({
         return roundToTwo((state.totalCartPrice += element.totalItemPrice));
       });
     },
+
+    closeErrorModal(state, action) {
+      state.isError = false;
+    },
   },
 });
 
