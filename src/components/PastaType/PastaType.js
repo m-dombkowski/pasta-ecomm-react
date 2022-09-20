@@ -1,5 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useState } from "react";
-
+import React, { useCallback, useEffect, useState } from "react";
 import { specificPastaTypeObj } from "../../firebase/fetchingData";
 import SinglePastaType from "../SinglePastaType/SinglePastaType";
 import styles from "./PastaType.module.css";
@@ -17,8 +16,6 @@ const PastaType = (props) => {
   useEffect(() => {
     initializeSubTypesArray();
   }, [initializeSubTypesArray]);
-
-  console.log(subTypes);
 
   return (
     <div>

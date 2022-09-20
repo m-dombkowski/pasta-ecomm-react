@@ -7,6 +7,7 @@ export const cartSlice = createSlice({
   initialState: {
     cartItems: [],
     totalCartPrice: 0,
+    isError: false,
     errorMessage: "",
   },
 
@@ -17,7 +18,8 @@ export const cartSlice = createSlice({
         (item) => item.id === newItem.id
       );
       state.totalCartPrice = 0;
-      if (!existingItem) {
+      if (!existingItem && action.payload.quantity > 0) {
+        state.isError = false;
         state.cartItems.push({
           id: newItem.id,
           price: newItem.price,
@@ -30,8 +32,11 @@ export const cartSlice = createSlice({
         existingItem.totalItemPrice = roundToTwo(
           existingItem.quantity * existingItem.price
         );
+        state.isError = false;
       } else {
-        state.errorMessage = "nie mozna tak";
+        console.log(action.payload.quantity);
+        state.isError = true;
+        state.errorMessage = "Quantity must be a positive number";
       }
 
       state.cartItems.map((element) => {

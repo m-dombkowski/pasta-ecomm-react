@@ -1,12 +1,10 @@
-import { Fragment, useEffect, useRef } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../features/cartSlice/cartSlice";
 import styles from "./SinglePastaType.module.css";
 
 const SinglePastaType = ({ loopElement, index, subTypes }) => {
-  const errorMessage = useSelector((state) => state.cart.errorMessage);
   const dispatch = useDispatch();
-
   const itemsRef = useRef([]);
 
   useEffect(() => {
@@ -29,6 +27,7 @@ const SinglePastaType = ({ loopElement, index, subTypes }) => {
         );
       }
     }
+
     itemsRef.current.map((element) => (element.value = ""));
   };
 
@@ -49,7 +48,6 @@ const SinglePastaType = ({ loopElement, index, subTypes }) => {
           className={styles.submitButton}
         />
       </form>
-      <div>{errorMessage && <p>{errorMessage}</p>}</div>
     </Fragment>
   );
 };

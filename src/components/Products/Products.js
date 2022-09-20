@@ -3,6 +3,7 @@ import { capitalizeFirstLetter } from "../../helpers/helpers";
 import FilterBar from "../FilterBar/FilterBar";
 import PastaType from "../PastaType/PastaType";
 import styles from "./Products.module.css";
+import { useSelector } from "react-redux";
 
 const Products = () => {
   const [filters, setFilters] = useState([
@@ -12,6 +13,8 @@ const Products = () => {
     "sheet",
     "short",
   ]);
+  const isError = useSelector((state) => state.cart.isError);
+  const errMessage = useSelector((state) => state.cart.errorMessage);
 
   return (
     <div className={styles.container}>
@@ -24,6 +27,11 @@ const Products = () => {
             type={element}
           />
         ))}
+        {isError && (
+          <div className={styles.errorModalContainer}>
+            <p className={styles.errorModalText}>{errMessage}</p>
+          </div>
+        )}
       </div>
     </div>
   );
