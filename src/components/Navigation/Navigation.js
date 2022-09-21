@@ -28,7 +28,7 @@ const Navigation = () => {
           <NavElement
             anchorClass={styles.productsAnchor}
             path="/products"
-            text="Our products"
+            text="Products"
             textStyle={styles.text}
           />
           <NavElement

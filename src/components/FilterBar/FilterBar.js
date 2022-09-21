@@ -1,12 +1,21 @@
 import { useEffect, useState } from "react";
 import styles from "./FilterBar.module.css";
-import { capitalizeFirstLetter } from "../../helpers/helpers";
+import {
+  capitalizeFirstLetter,
+  sortNameAToZ,
+  sortNameZToA,
+  sortPriceHighToLow,
+  sortPriceLowToHigh,
+} from "../../helpers/helpers";
 import { useDispatch } from "react-redux/es/exports";
 import { initializeFiltersArray } from "../../features/sorting/sortingSlice";
+import { specificPastaTypeObj } from "../../firebase/fetchingData";
 
 const FilterBar = (props) => {
   const dispatch = useDispatch();
   const [typesArray, setTypesArray] = useState([]);
+
+  const [chosenSubTypes, setChosenSubTypes] = useState([]);
 
   useEffect(() => {
     dispatch(initializeFiltersArray(setTypesArray));
@@ -47,6 +56,41 @@ const FilterBar = (props) => {
     props.setFilterState(typesArray);
   };
 
+  const initializeSortingArray = () => {
+    let arr = [];
+    props.filterState.map((element) => {
+      const response = specificPastaTypeObj(arr, element);
+      response.then((data) => props.setSubTypes(data));
+    });
+  };
+
+  const sortingHandler = (event) => {
+    const sortType = event.target.value;
+    initializeSortingArray();
+
+    switch (sortType) {
+      case "ascendingName":
+        props.subTypes.sort(sortNameAToZ);
+        console.log(props.subTypes);
+        break;
+      case "descendingName":
+        props.subTypes.sort(sortNameZToA);
+        console.log(props.subTypes);
+        break;
+      case "descendingPrice":
+        props.subTypes.sort(sortPriceHighToLow);
+        console.log(props.subTypes);
+        break;
+      case "ascendingPrice":
+        props.subTypes.sort(sortPriceLowToHigh);
+        console.log(props.subTypes);
+        break;
+      default:
+        console.log("lipa");
+        break;
+    }
+  };
+
   return (
     <div className={styles.filtersContainer}>
       <section className={styles.filtersSection}>
@@ -67,6 +111,15 @@ const FilterBar = (props) => {
             </label>
           </div>
         ))}
+      </section>
+      <section>
+        <header className={styles.header}>Sort Subtypes By</header>
+        <select onChange={sortingHandler}>
+          <option value="ascendingName">Name (A-Z)</option>
+          <option value="descendingName">Name (Z-A)</option>
+          <option value="ascendingPrice">Price (Highest to Lowest)</option>
+          <option value="descendingPrice">Price (Lowest to Highest)</option>
+        </select>
       </section>
     </div>
   );
@@ -92,19 +145,19 @@ const sortHandler = async (event) => {
 
   switch (sortType) {
     case "ascendingName":
-      toSort.map((element) => element.name.sort((a, b) => a - b));
+      toSort.map((element) => element.Name.sort((a, b) => a - b));
       console.log(toSort);
       break;
     case "descendingName":
-      toSort.map((element) => element.name.sort((a, b) => a + b));
+      toSort.map((element) => element.Name.sort((a, b) => a + b));
       console.log(toSort);
       break;
     case "ascendingPrice":
-      toSort.map((element) => element.price.sort((a, b) => a - b));
+      toSort.map((element) => element.Price.sort((a, b) => a - b));
       console.log(toSort);
       break;
     case "descendingPrice":
-      toSort.map((element) => element.price.sort((a, b) => a + b));
+      toSort.map((element) => element.Price.sort((a, b) => a + b));
       console.log(toSort);
       break;
     default:

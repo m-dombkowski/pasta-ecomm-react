@@ -1,21 +1,18 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { specificPastaTypeObj } from "../../firebase/fetchingData";
 import SinglePastaType from "../SinglePastaType/SinglePastaType";
 import styles from "./PastaType.module.css";
 
 const PastaType = (props) => {
-  const { title, type } = props;
-  const [subTypes, setSubTypes] = useState([]);
+  const { title, type, subTypes, setSubTypes } = props;
 
   const initializeSubTypesArray = useCallback(async () => {
     let arr = [];
-    const data = await specificPastaTypeObj(arr, type);
-    setSubTypes(data);
-  }, [type]);
+    const response = await specificPastaTypeObj(arr, type);
+    // props.initData(response);
+  }, []);
 
-  useEffect(() => {
-    initializeSubTypesArray();
-  }, [initializeSubTypesArray]);
+  initializeSubTypesArray();
 
   return (
     <div>
@@ -25,7 +22,7 @@ const PastaType = (props) => {
           {subTypes.map((element, index) => (
             <li key={index} className={styles.typeBox}>
               <SinglePastaType
-                subTypes={subTypes}
+                subTypes={props.subTypes}
                 index={index}
                 loopElement={element}
               />

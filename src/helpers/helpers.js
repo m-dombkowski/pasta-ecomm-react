@@ -16,3 +16,43 @@ export const capitalizeFirstLetter = (string) => {
 export const roundToTwo = (num) => {
   return +(Math.round(num + "e+2") + "e-2");
 };
+
+export const sortNameAToZ = (a, b) => {
+  if (a.Name < b.Name) {
+    return -1;
+  }
+  if (a.Name > b.Name) {
+    return 1;
+  }
+  return 0;
+};
+
+export const sortNameZToA = (a, b) => {
+  if (a.Name > b.Name) {
+    return -1;
+  }
+  if (a.Name < b.Name) {
+    return 1;
+  }
+  return 0;
+};
+
+export const sortPriceLowToHigh = (a, b) => {
+  if (a.Price > b.Price) {
+    return -1;
+  }
+  if (a.Price < b.Price) {
+    return 1;
+  }
+  return 0;
+};
+
+export const sortPriceHighToLow = (a, b) => {
+  if (a.Price < b.Price) {
+    return -1;
+  }
+  if (a.Price > b.Price) {
+    return 1;
+  }
+  return 0;
+};
