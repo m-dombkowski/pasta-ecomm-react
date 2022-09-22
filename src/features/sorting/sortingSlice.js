@@ -1,9 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit/";
-import { getPastaTypes } from "../../firebase/fetchingData";
-
-const initialState = {
-  arrayToSort: [],
-};
+import {
+  getPastaTypes,
+  specificPastaTypeObj,
+} from "../../firebase/fetchingData";
 
 export const initializeFiltersArray = createAsyncThunk(
   "sort",
@@ -16,33 +15,60 @@ export const initializeFiltersArray = createAsyncThunk(
   }
 );
 
+export const initializeArrayToSort = createAsyncThunk("sort", async (type) => {
+  let arr = [];
+  const data = await specificPastaTypeObj(arr, type);
+  return data;
+});
+
 export const sortSlice = createSlice({
   name: "sort",
-  initialState,
+
+  initialState: {
+    arrayToSort: [],
+  },
 
   reducers: {
-    ascendingName: (arrayToSort) => {
-      return arrayToSort.map((element) => element.name.sort((a, b) => a - b));
+    sortNameAToZ: (a, b) => {
+      if (a.Name < b.Name) {
+        return -1;
+      }
+      if (a.Name > b.Name) {
+        return 1;
+      }
+      return 0;
     },
-    descendingName: (arrayToSort) => {
-      return arrayToSort.map((element) => element.name.sort((a, b) => a + b));
+    sortNameZToA: (a, b) => {
+      if (a.Name > b.Name) {
+        return -1;
+      }
+      if (a.Name < b.Name) {
+        return 1;
+      }
+      return 0;
     },
-    ascendingPrice: (arrayToSort) => {
-      return arrayToSort.map((element) => element.price.sort((a, b) => a - b));
+    sortPriceLowToHigh: (a, b) => {
+      if (a.Price > b.Price) {
+        return -1;
+      }
+      if (a.Price < b.Price) {
+        return 1;
+      }
+      return 0;
     },
-    descendingPrice: (arrayToSort) => {
-      return arrayToSort.map((element) => element.price.sort((a, b) => a + b));
+    sortPriceHighToLow: (a, b) => {
+      if (a.Price < b.Price) {
+        return -1;
+      }
+      if (a.Price > b.Price) {
+        return 1;
+      }
+      return 0;
     },
   },
 });
 
-export const {
-  ascendingName,
-  descendingName,
-  ascendingPrice,
-  descendingPrice,
-} = sortSlice.actions;
+export const sortingActions = sortSlice.actions;
 
-export const selectArray = (state) => state.sorting.arrayToSort;
-
-export default sortSlice.reducer;
+export default sortSlice;
+// export const selectArray = (state) => state.sorting.arrayToSort;

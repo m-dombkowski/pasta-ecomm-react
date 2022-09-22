@@ -5,7 +5,8 @@ import PastaType from "../PastaType/PastaType";
 import styles from "./Products.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../features/cartSlice/cartSlice";
-import { specificPastaTypeObj } from "../../firebase/fetchingData";
+import { getPastaTypes } from "../../firebase/fetchingData";
+import { initializeArrayToSort } from "../../features/sorting/sortingSlice";
 
 const Products = () => {
   const [subTypes, setSubTypes] = useState([]);
@@ -16,6 +17,7 @@ const Products = () => {
     "sheet",
     "short",
   ]);
+
   const isError = useSelector((state) => state.cart.isError);
   const errMessage = useSelector((state) => state.cart.errorMessage);
   const dispatch = useDispatch();
@@ -24,26 +26,26 @@ const Products = () => {
     dispatch(cartActions.closeErrorModal());
   };
 
-  const init = useCallback(async () => {
-    for (let i = 0; i < filters.length; i++) {
-      let arr = [];
-      const response = await specificPastaTypeObj(arr, filters[i]);
-      // setSubTypes(response);
-    }
-    // let arr = [];
-    // const response = await specificPastaTypeObj(arr, type);
-    // console.log(response);
-  });
-
   useEffect(() => {
-    init();
-  }, [init]);
+    const init = async () => {
+      const data = await getPastaTypes(process.env.REACT_APP_FIREBASE_API_KEY);
+      for (const name in data) {
+        for (const type in data[name]) {
+          setSubTypes((prevState) => [...prevState, data[name][type]]);
+        }
+      }
+    };
 
-  // console.log(subTypes);
+    init().then();
+  }, []);
 
   return (
     <div className={styles.container}>
-      <FilterBar filterState={filters} setFilterState={setFilters} />
+      <FilterBar
+        filterState={filters}
+        setFilterState={setFilters}
+        subTypes={subTypes}
+      />
       <div className={styles.productsContainer}>
         {filters.map((element) => (
           <PastaType
@@ -51,6 +53,7 @@ const Products = () => {
             key={Math.random()}
             title={capitalizeFirstLetter(element)}
             type={element}
+            setSubTypes={setSubTypes}
           />
         ))}
         {isError && (

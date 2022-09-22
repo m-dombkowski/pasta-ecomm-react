@@ -44,7 +44,7 @@ export const cartSlice = createSlice({
       });
     },
 
-    closeErrorModal(state, action) {
+    closeErrorModal(state) {
       state.isError = false;
     },
   },
