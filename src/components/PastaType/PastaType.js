@@ -30,23 +30,3 @@ const PastaType = (props) => {
 };
 
 export default PastaType;
-
-// const init = useCallback(async () => {
-//   let arr = [];
-//   const response = await specificPastaTypeObj(arr, type);
-//   console.log(response);
-// }, []);
-
-// useEffect(() => {
-//   init();
-// }, [init]);
-
-{
-  /* <li key={index} className={styles.typeBox}>
-<SinglePastaType
-  subTypes={props.subTypes}
-  index={index}
-  loopElement={element}
-/>
-</li> */
-}

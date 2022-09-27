@@ -46,11 +46,8 @@ const FilterBar = (props) => {
         props.setFilterState((prevState) =>
           prevState.filter((element) => {
             if (!element) {
-              console.log(props.filterState);
-
               return props.setFilterState(typesArray);
             }
-            console.log(props.filterState);
             return element !== filterName;
           })
         );
@@ -60,8 +57,6 @@ const FilterBar = (props) => {
 
   const sortingHandler = (event) => {
     const sortType = event.target.value;
-
-    console.log(subTypes);
 
     switch (sortType) {
       case "ascendingName":

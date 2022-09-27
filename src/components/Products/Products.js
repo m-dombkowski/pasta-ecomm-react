@@ -57,7 +57,6 @@ const Products = () => {
             type={element}
             setSubTypes={setSubTypes}
             sortingValue={sortingValue}
-            filterState={filters}
           />
         ))}
         {isError && (
