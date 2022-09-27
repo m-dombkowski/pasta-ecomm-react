@@ -1,4 +1,4 @@
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { capitalizeFirstLetter } from "../../helpers/helpers";
 import FilterBar from "../FilterBar/FilterBar";
 import PastaType from "../PastaType/PastaType";
@@ -6,7 +6,6 @@ import styles from "./Products.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../features/cartSlice/cartSlice";
 import { getPastaTypes } from "../../firebase/fetchingData";
-
 
 const Products = () => {
   const [subTypes, setSubTypes] = useState([]);
@@ -18,7 +17,7 @@ const Products = () => {
     "short",
   ]);
 
-  const [sortingValue, setSortingValue] = useState('ascendingName');
+  const [sortingValue, setSortingValue] = useState("ascendingName");
 
   const isError = useSelector((state) => state.cart.isError);
   const errMessage = useSelector((state) => state.cart.errorMessage);
@@ -58,6 +57,7 @@ const Products = () => {
             type={element}
             setSubTypes={setSubTypes}
             sortingValue={sortingValue}
+            filterState={filters}
           />
         ))}
         {isError && (

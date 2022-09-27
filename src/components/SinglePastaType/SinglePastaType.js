@@ -3,18 +3,13 @@ import { useDispatch } from "react-redux";
 import { cartActions } from "../../features/cartSlice/cartSlice";
 import styles from "./SinglePastaType.module.css";
 
-const SinglePastaType = ({ loopElement, index, subTypes, sortingValue }) => {
+const SinglePastaType = ({ loopElement, index, subTypes }) => {
   const dispatch = useDispatch();
   const itemsRef = useRef([]);
 
   useEffect(() => {
     itemsRef.current = itemsRef.current.slice(0, subTypes.length);
   }, [subTypes.length]);
-
-  // useEffect(() => {
-  //   console.log("Only for re-render when changing sorting value :)");
-  //   console.log(sortingValue);
-  // }, [sortingValue]);
 
   const addToCartHandler = (event) => {
     event.preventDefault();

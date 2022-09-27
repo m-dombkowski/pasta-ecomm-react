@@ -25,8 +25,18 @@ const FilterBar = (props) => {
     }
   }, [props, typesArray]);
 
+  const showAllButtonHandler = () => {
+    const checkboxes = document.querySelectorAll("input[type=checkbox]");
+    for (let i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = false;
+    }
+
+    props.setFilterState(typesArray);
+  };
+
   const checkBoxHandler = (event) => {
     const filterName = event.target.value;
+
     if (props.filterState.length === 5) {
       props.setFilterState([filterName]);
     } else {
@@ -36,22 +46,16 @@ const FilterBar = (props) => {
         props.setFilterState((prevState) =>
           prevState.filter((element) => {
             if (!element) {
+              console.log(props.filterState);
+
               return props.setFilterState(typesArray);
             }
+            console.log(props.filterState);
             return element !== filterName;
           })
         );
       }
     }
-  };
-
-  const showAllButtonHandler = () => {
-    const checkboxes = document.querySelectorAll("input[type=checkbox]");
-    for (let i = 0; i < checkboxes.length; i++) {
-      checkboxes[i].checked = false;
-    }
-
-    props.setFilterState(typesArray);
   };
 
   const sortingHandler = (event) => {
@@ -81,6 +85,12 @@ const FilterBar = (props) => {
         break;
     }
   };
+
+  useEffect(() => {
+    if (props.filterState.length === 5) {
+      showAllButtonHandler();
+    }
+  }, [props]);
 
   return (
     <div className={styles.filtersContainer}>
