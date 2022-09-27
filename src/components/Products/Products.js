@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { capitalizeFirstLetter } from "../../helpers/helpers";
 import FilterBar from "../FilterBar/FilterBar";
 import PastaType from "../PastaType/PastaType";
@@ -6,7 +6,7 @@ import styles from "./Products.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../features/cartSlice/cartSlice";
 import { getPastaTypes } from "../../firebase/fetchingData";
-import { initializeArrayToSort } from "../../features/sorting/sortingSlice";
+
 
 const Products = () => {
   const [subTypes, setSubTypes] = useState([]);
@@ -17,6 +17,8 @@ const Products = () => {
     "sheet",
     "short",
   ]);
+
+  const [sortingValue, setSortingValue] = useState('ascendingName');
 
   const isError = useSelector((state) => state.cart.isError);
   const errMessage = useSelector((state) => state.cart.errorMessage);
@@ -45,6 +47,7 @@ const Products = () => {
         filterState={filters}
         setFilterState={setFilters}
         subTypes={subTypes}
+        setSortingValue={setSortingValue}
       />
       <div className={styles.productsContainer}>
         {filters.map((element) => (
@@ -54,6 +57,7 @@ const Products = () => {
             title={capitalizeFirstLetter(element)}
             type={element}
             setSubTypes={setSubTypes}
+            sortingValue={sortingValue}
           />
         ))}
         {isError && (

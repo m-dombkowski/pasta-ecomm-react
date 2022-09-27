@@ -11,10 +11,10 @@ const SinglePastaType = ({ loopElement, index, subTypes, sortingValue }) => {
     itemsRef.current = itemsRef.current.slice(0, subTypes.length);
   }, [subTypes.length]);
 
-  useEffect(() => {
-    console.log("Only for re-render when changing sorting value :)");
-    console.log(sortingValue);
-  }, [sortingValue]);
+  // useEffect(() => {
+  //   console.log("Only for re-render when changing sorting value :)");
+  //   console.log(sortingValue);
+  // }, [sortingValue]);
 
   const addToCartHandler = (event) => {
     event.preventDefault();

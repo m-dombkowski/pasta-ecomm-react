@@ -1,15 +1,9 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import sortSlice, {
-  initializeArrayToSort,
-  sortingActions,
-} from "../../features/sorting/sortingSlice";
 import { capitalizeFirstLetter } from "../../helpers/helpers";
 import SinglePastaType from "../SinglePastaType/SinglePastaType";
 import styles from "./PastaType.module.css";
 
 const PastaType = (props) => {
-  const { title, subTypes } = props;
+  const { title, subTypes, sortingValue } = props;
 
   return (
     <div>
@@ -24,6 +18,7 @@ const PastaType = (props) => {
                     subTypes={props.subTypes}
                     index={index}
                     loopElement={element}
+                    sortingValue={sortingValue}
                   />
                 </li>
               )

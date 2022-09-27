@@ -61,28 +61,23 @@ const FilterBar = (props) => {
 
     switch (sortType) {
       case "ascendingName":
-        // subTypes.sort(dispatch.sortingActions.sortNameAtoZ());
         subTypes.sort(sortNameAToZ);
-        console.log(subTypes);
-        props.setSortingValue("ascendingName");
+        setSortingValue(sortType);
         break;
       case "descendingName":
         subTypes.sort(sortNameZToA);
-        console.log(subTypes);
-        props.setSortingValue("descendingName");
+        setSortingValue(sortType);
         break;
       case "descendingPrice":
         subTypes.sort(sortPriceHighToLow);
-        console.log(subTypes);
-        props.setSortingValue("descendingPrice");
+        setSortingValue("descendingPrice");
         break;
       case "ascendingPrice":
         subTypes.sort(sortPriceLowToHigh);
-        console.log(subTypes);
-        props.setSortingValue("ascendingPrice");
+        setSortingValue("ascendingPrice");
         break;
       default:
-        console.log("lipa");
+        console.log("default sort switch, should not get here. yikes");
         break;
     }
   };
